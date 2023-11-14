@@ -3,3 +3,5 @@ The main Objective of this project to create an application which stores contact
 - Spring Boot is used to develop back-end and Spring Data JPA is used for performing Database CRUD operations.
 - HTML5, CSS3, Bootstrap and Thymeleaf as template Engine is used to develop the front end.
 - MySQL for Database
+
+## For someone who wants to run this application in their IDE's can simply have to setup database properties in application.properties in project
