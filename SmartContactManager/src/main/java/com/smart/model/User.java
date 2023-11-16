@@ -14,6 +14,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -32,7 +33,9 @@ public class User {
 	private String email;
 
 	@NotBlank(message = "Enter the Password")
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$", message = "Password must be eight characters including one uppercase letter, one special character, and alphanumeric characters")
 	private String password;
+
 	private String role;
 	private boolean enabled;
 	private String imageUrl;
@@ -131,7 +134,5 @@ public class User {
 	public void setContacts(List<Contact> contacts) {
 		this.contacts = contacts;
 	}
-
-
 
 }

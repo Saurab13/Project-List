@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.smart.dao.UserRepository;
+import com.smart.helper.PasswordValidator;
 import com.smart.model.User;
 import com.smart.service.EmailService;
 
@@ -29,6 +30,9 @@ public class ForgotController {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	private PasswordValidator passwordValidator;
 
 	@RequestMapping("/forgot")
 	public String openEmailForm() {

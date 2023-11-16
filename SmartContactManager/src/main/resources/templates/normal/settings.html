@@ -14,6 +14,14 @@
 				<div class="col-md-12">
 					<div class="card">
 
+
+						<div th:if="${session.message}" class="alert alert-danger">
+							<p class="text-center" th:text="${session.message}"></p>
+
+							<th:block th:text="${@sessionHelper.removeMessageFromSession()}"></th:block>
+						</div>
+
+
 						<div class="card-body">
 
 							<form th:action="@{/user/change-password}" method="post">

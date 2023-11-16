@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.smart.dao.ContactRepository;
 import com.smart.dao.UserRepository;
 import com.smart.helper.Message;
+import com.smart.helper.PasswordValidator;
 import com.smart.model.Contact;
 import com.smart.model.User;
 
@@ -45,6 +46,9 @@ public class UserController {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	private PasswordValidator passwordValidator;
 
 	// Method For adding Common data to response
 	@ModelAttribute
@@ -242,7 +246,18 @@ public class UserController {
 	// Change password handle
 	@PostMapping("/change-password")
 	public String changePassword(@RequestParam("oldPassword") String oldPassword,
-			@RequestParam("newPassword") String newPassword, Principal principal, Model model, HttpSession session) {
+			@RequestParam("newPassword") String newPassword, Principal principal,HttpSession session) {
+
+		if (newPassword == null || !this.passwordValidator.isValidPassword(newPassword)) {
+
+			System.out.println("Something Went Wrong");
+
+			session.setAttribute("message", "Enter the Password in correct Format");
+
+			return "redirect:/user/settings";
+
+		}
+
 		String username = principal.getName();
 		User currentUser = this.userRepository.getUserByUserName(username);
 
@@ -254,7 +269,7 @@ public class UserController {
 
 		} else {
 			// error
-			session.setAttribute("message", new Message("Please Enter Correct Old Password !", "alert-success"));
+			session.setAttribute("message", new Message("Please Enter Correct Old Password !", "alert-danger"));
 
 			return "redirect:/user/settings";
 
